@@ -41,6 +41,8 @@ If you want to capture the output,
 Rscript example.R d7d7d7a > example.Rout
 ```
 
+which will get everything above **except** for the line with "Starting processing". 
+
 ## Submitting to SLURM
 
 An example SLURM submission script is [`sbatch-submit.sh`](sbatch-submit.sh):
@@ -83,4 +85,14 @@ e.g.
 sbatch sbatch-submit.sh
 ```
 
-You should see output in `logs/` - in particular, for each iteration of the array ID `%a`, one `logfile-%a.out` containing "standard out" (what you see on the console) and one `logfile-%a.err` containing any errors or messages.
+You should see output in `logs/` - in particular, for each iteration of the array ID `%a`, one `logfile-%a.out` containing "standard out" (what you see on the console) and one `logfile-%a.err` containing any errors or messages:
+
+**logfile-1.err** is that missing "Starting" message from earlier:
+
+```
+Starting processing for firmid=xxxx1
+```
+
+while **logfile-1.out** contains the other screen output.
+
+It is possible to combine the two, the way you would see it on screen, using different `#SBATCH` keywords.
